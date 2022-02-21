@@ -85,16 +85,17 @@ router.post('/login', checkUsernameExists, (req, res, next) => {
   }
  */
 router.get('/logout', (req, res, next) => {
-  if (req.session) {
+  console.log(req.session.user);
+  if (req.session.user) {
     req.session.destroy(err => {
       if (err != null) {
           next({ message: 'error while logging out' });
       } else {
-          res.json({ message: 'logged out' });
+          res.status(200).json({ message: 'logged out' });
       }
-  });
+    });
   } else {
-    req.status(200).json({ message: 'no session' });
+    res.status(200).json({ message: 'no session' });
   }
 });
  
